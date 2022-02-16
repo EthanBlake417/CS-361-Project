@@ -1,5 +1,11 @@
-Name,City,State,Website,Wikipedia,Type of Activity,Latitude,Longitude, Distance, Directions
-D.P. Dough,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.421101,-111.925018, 5.31
-Cornish Pasty Co.,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.422943,-111.95182, 2.72
-The Chuckbox,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.422184,-111.93644, 4.32
-Portillo's,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.429768,-111.908638, 2.0
+name,city,state,website,wikipedia,type_of_activity,latitude,longitude,distance
+Americana Burgers & Beer,Tempe,Arizona,http://www.americanatempe.com,,"restaurants,foods,tourist_facilities",33.426918,-111.940224,15
+Ra Sushi Bar Restaurant,Tempe,Arizona,https://rasushi.com,,"restaurants,foods,tourist_facilities",33.426075,-111.939919,15
+Applebee's,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.407093,-111.925652,15
+La Bocca Urban Pizzeria + Wine Bar,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.423542,-111.939674,15
+Chili's,Tempe,Arizona,,,"restaurants,foods,tourist_facilities",33.422188,-111.944527,15
+Mesa Institute of Religion,Mesa,Arizona,,,"religion,other_temples,interesting_places",33.391026,-111.875305,15
+Islamic Community Center,Tempe,Arizona,,,"religion,other_temples,interesting_places",33.424034,-111.937065,15
+The Tilted Landscape,Tempe,Arizona,,,"urban_environment,cultural,interesting_places,sculptures",33.390884,-111.927567,15
+Grady Gammage Memorial Auditorium,Tempe,Arizona,https://www.asugammage.com,https://en.wikipedia.org/wiki/Gammage%20Memorial%20Auditorium,"cultural,theatres_and_entertainments,interesting_places,other_theatres",33.41626,-111.938057,15
+Galvin Playhouse,Tempe,Arizona,,,"cultural,theatres_and_entertainments,interesting_places,other_theatres",33.418701,-111.938904,15

@@ -1,7 +1,15 @@
+# Ethan Blake
+# CS 361
+# This is my placefinder microservice. In order to use it, use an input.txt file and an output.txt file
+
+
+import json
+import time
 import pandas as pd
 import requests
 from geocoding_api import get_lat_lon
 import random
+import os
 
 
 def miles_to_meters(num_in_miles):
@@ -13,7 +21,7 @@ def get_places_by_radius(zip_code, country_code, mile_radius, num_results, kinds
     # for search by radius
     # zip_code = input("Please enter your zip code: ")
     # country_code = input("Please enter your country code: ")
-    lat, lon = get_lat_lon(zip_code, country_code)
+    lat, lon = get_lat_lon(str(zip_code), str(country_code))
     base = "https://api.opentripmap.com/0.1/"
     lang = "en"
     # mile_radius = 10
@@ -74,7 +82,7 @@ def get_places_by_radius(zip_code, country_code, mile_radius, num_results, kinds
     return list_of_dicts, lat, lon
 
 
-def multiple_kinds(zip_code, country_code, mile_radius, num_results, kinds: list):
+def make_csv(zip_code, country_code, mile_radius, num_results, kinds: list):
     list_of_dicts = []
     name = []
     city = []
@@ -84,6 +92,7 @@ def multiple_kinds(zip_code, country_code, mile_radius, num_results, kinds: list
     latitude = []
     longitude = []
     kinds_list = []
+    distance = []
     for i in range(len(kinds)):
         place, og_lat, og_lon = get_places_by_radius(zip_code, country_code, mile_radius, int(num_results), kinds[i])
         list_of_dicts.append(place)
@@ -97,6 +106,7 @@ def multiple_kinds(zip_code, country_code, mile_radius, num_results, kinds: list
             kinds_list.append(list_of_dicts[i][j]['kinds'])
             latitude.append(list_of_dicts[i][j]['lat_long']['lat'])
             longitude.append(list_of_dicts[i][j]['lat_long']['lon'])
+            distance.append(15)
     df = pd.DataFrame()
     df['name'] = name
     df['city'] = city
@@ -106,9 +116,24 @@ def multiple_kinds(zip_code, country_code, mile_radius, num_results, kinds: list
     df['type_of_activity'] = kinds_list
     df['latitude'] = latitude
     df['longitude'] = longitude
-    df.to_csv('output_1.csv', index=False)
-    return "Done"
+    df['distance'] = distance
+    df.to_csv('output.csv', index=False)
+
+
+def place_finder():
+    while True:
+        try:
+            with open('input.txt', 'r') as f:
+                time.sleep(2)
+                args = json.load(f)
+                make_csv(str(args[0]), str(args[1]), int(args[2]), str(args[3]), args[4])
+            with open('status.txt', 'w') as f:
+                f.write("Done")
+            if os.path.exists("input.txt"):
+                os.remove("input.txt")
+        except FileNotFoundError:
+            continue
 
 
 if __name__ == '__main__':
-    multiple_kinds(zip_code="85282", country_code="US", mile_radius=40, num_results="3", kinds=["accomodations"])
+    place_finder()

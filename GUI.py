@@ -1,24 +1,27 @@
 import csv
-import multiprocessing
+import json
+import time
 from tkinter import *
 from tkinter import ttk
-from place_finder_api import multiple_kinds
+from place_finder_api import place_finder
 from geocoding_api import get_lat_lon
 import tkinter
 from tkintermapview import TkinterMapView
+from tkinter import ttk
+import os
 
 
 def ceil(a, b):
     return -1 * (-a // b)
 
 
-def embed_google_maps(og_lat, og_lon, lat, lon, name, root):
-    window3 = tkinter.Toplevel(root)
-    window3.geometry(f"{1200}x{600}")
-    window3.title("Directions.py")
+def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
+    # window3 = tkinter.Toplevel(root)
+    # window3.geometry(f"{1200}x{600}")
+    # window3.title("Directions.py")
 
     # create map widget
-    map_widget = TkinterMapView(window3, width=600, height=400, corner_radius=0)
+    map_widget = TkinterMapView(tab3, width=600, height=400, corner_radius=0)
     map_widget.pack(fill="both", expand=True)
     map_widget.set_position(og_lat, og_lon)
     map_widget.set_zoom(12)
@@ -28,23 +31,33 @@ def embed_google_maps(og_lat, og_lon, lat, lon, name, root):
 
     # google normal tile server
     map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
-    window3.mainloop()
+    tabControl.select(tab3)
 
 
-def get_directions(root):
+def get_directions(tab3, tabControl, lat, lon, name):
     og_lat, og_lon = get_lat_lon("85282", "US")
-    embed_google_maps(float(og_lat), float(og_lon), 33.421101, -111.925018, "D.P.Dough", root)
+    embed_google_maps(float(og_lat), float(og_lon), lat, lon, name, tab3, tabControl)
 
 
 def main():
     # set up the widget
     root = tkinter.Tk()
     # print(root.themes)
-    root.title("Activity Finder")
-    # root.attributes('-fullscreen', True)
-    root.geometry("900x750")                  # this is how one would set up a standard widget size.
+    root.title("Place Finder")
+    tabControl = ttk.Notebook(root)
 
-    overall_frame = ttk.Frame(root)
+    tab1 = ttk.Frame(tabControl)
+    tab2 = ttk.Frame(tabControl)
+    tab3 = ttk.Frame(tabControl)
+
+    tabControl.add(tab1, text='Search')
+    tabControl.add(tab2, text='Search Results')
+    tabControl.add(tab3, text='Directions')
+    tabControl.pack(expand=1, fill="both")
+    # root.attributes('-fullscreen', True)
+    root.geometry("1200x750")  # this is how one would set up a standard widget size.
+
+    overall_frame = ttk.Frame(tab1)
     overall_frame.place(anchor=NW, height=775, width=858)
 
     # set up checkboxes
@@ -84,10 +97,11 @@ def main():
     # This next section is the title
     title = ttk.Label(overall_frame, text="Welcome to Ethan's Place Finder! ")
     title.config(font=("Courier", 16))
-    title.place(x=250, y=40, width=461, height=41)
-    title2 = ttk.Label(overall_frame, text="Ethan's Place finder is for those looking for good date ideas,\nfor those looking for something to do, and for anyone interested\n                       in trying new things!")
+    title.place(x=400, y=40, width=461, height=41)
+    title2 = ttk.Label(overall_frame,
+                       text="Ethan's Place finder is for those looking for good date ideas,\nfor those looking for something to do, and for anyone interested\n                       in trying new things!")
     title2.config(font=("Courier", 8))
-    title2.place(x=250, y=80, width=461, height=61)
+    title2.place(x=400, y=80, width=461, height=61)
     # Next frame which has zip code and Search Radius
     frame2 = ttk.Frame(overall_frame)
     frame2.place(x=50, y=370, width=201, height=200)
@@ -116,14 +130,6 @@ def main():
     num_results.grid(row=5, column=0, sticky=W)
     num_results.insert(0, "1")
 
-    # label5 = ttk.Label(frame2, text="Maximum Cost: USD$: ")
-    # label5.config(font=("Courier", 10))
-    # label5.grid(row=6, column=0, sticky=W)
-    #
-    # max_cost = ttk.Entry(frame2, width=10)
-    # max_cost.grid(row=7, column=0, sticky=W)
-    # max_cost.insert(0, "25")
-
     def run():
         # if Restaurants checked
         kinds = []
@@ -142,48 +148,55 @@ def main():
         if transport.get() == 1:
             kinds.append('transport')
         #    run restaurant api. these things are to be decided in the future
-        status = multiple_kinds(zip_code=zip_code.get(), country_code='US', mile_radius=int(search_radius.get()), num_results=ceil(int(num_results.get()), len(kinds)), kinds=kinds)
-        if status == "Done":
-
-            # open new window with results
-            new_window = tkinter.Toplevel(root)
-            new_window.title("Results")
-            # root.attributes('-fullscreen', True)
-            new_window.geometry("1200x700")
-            title3 = ttk.Label(new_window, text="Here are Your Results! ")
-            title3.config(font=("Courier", 16))
-            title3.place(x=450, y=40, width=461, height=41)
-            title4 = ttk.Label(new_window, text="Note: if you run the search again you\nwill lose your previous results. ")
-            title4.config(font=("Courier", 12))
-            title4.place(x=450, y=90, width=461, height=41)
-            treeview_frame = ttk.Frame(new_window)
-            treeview_frame.place(anchor=NW, y=150, height=700, width=1200)
-            filename = 'output.csv'
-            with open(filename, 'r') as file:
-                i = 0
-                width = 10
-                csv_reader = csv.reader(file)
-                for row in csv_reader:  # Rows
-                    for j in range(width):  # Columns
-                        if i == 0:
+        with open('input.txt', 'w') as f:
+            json.dump([str(zip_code.get()), 'US', int(search_radius.get()), str(ceil(int(num_results.get()), len(kinds))), kinds], f)
+        # open new window with results
+        while True:
+            try:
+                with open('status.txt', 'r'):
+                    break
+            except FileNotFoundError:
+                continue
+        title3 = ttk.Label(tab2, text="Here are Your Results! ")
+        title3.config(font=("Courier", 16))
+        title3.place(x=450, y=40, width=461, height=41)
+        title4 = ttk.Label(tab2, text="Note: if you run the search again you\nwill lose your previous results. ")
+        title4.config(font=("Courier", 12))
+        title4.place(x=450, y=90, width=461, height=41)
+        treeview_frame = ttk.Frame(tab2)
+        treeview_frame.place(anchor=NW, y=150, height=700, width=1200)
+        filename = 'output.csv'
+        with open(filename, 'r') as file:
+            i = 0
+            width = 10
+            csv_reader = csv.reader(file)
+            for row in csv_reader:  # Rows
+                for j in range(width):  # Columns
+                    if i == 0:
+                        if j == 9:
+                            b = Label(treeview_frame, text='Directions')
+                            b.grid(row=i, column=j)
+                        else:
                             b = Label(treeview_frame, text=f'{row[j]}')
                             b.grid(row=i, column=j)
-                        elif j != width-1:
-                            b = Entry(treeview_frame)
-                            b.grid(row=i, column=j)
-                            b.insert(0, row[j])
-                        else:
-                            b = Button(treeview_frame, text="Get Directions", command=lambda: get_directions(root))
-                            b.grid(row=i, column=j)
-                    i += 1
-            new_window.mainloop()
+                    elif j != width - 1:
+                        b = Entry(treeview_frame)
+                        b.grid(row=i, column=j)
+                        b.insert(0, row[j])
+                    else:
+                        print(row[j - 9])
+                        b = Button(treeview_frame, text="Get Directions", command=lambda: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9])))
+                        b.grid(row=i, column=j)
+                i += 1
+        if os.path.exists("status.txt"):
+            os.remove("status.txt")
+        tabControl.select(tab2)
 
-    run_search = Button(root, text='Run Search', command=run)
-    run_search.place(x=390, y=290, width=151, height=71)
+    run_search = Button(tab1, text='Run Search', command=run)
+    run_search.place(x=535, y=290, width=151, height=71)
 
     root.mainloop()
 
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
     main()
