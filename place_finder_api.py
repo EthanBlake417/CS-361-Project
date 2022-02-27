@@ -4,7 +4,6 @@
 
 
 import json
-import time
 import pandas as pd
 import requests
 from geocoding_api import get_lat_lon
@@ -124,7 +123,10 @@ def place_finder():
     while True:
         try:
             with open('input.txt', 'r') as f:
-                time.sleep(2)
+                while True:
+                    filesize = os.path.getsize("input.txt")
+                    if filesize != 0:
+                        break
                 args = json.load(f)
                 make_csv(str(args[0]), str(args[1]), int(args[2]), str(args[3]), args[4])
             with open('status.txt', 'w') as f:

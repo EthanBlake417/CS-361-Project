@@ -2,403 +2,196 @@
    "geocoded_waypoints" : [
       {
          "geocoder_status" : "OK",
-         "place_id" : "ChIJJVpemx8GK4cR8M0YvhOEm-8",
-         "types" : [ "postal_code" ]
+         "place_id" : "ChIJd9HPGJkIK4cRFhKom1ESH8c",
+         "types" : [ "establishment", "point_of_interest", "real_estate_agency" ]
       },
       {
          "geocoder_status" : "OK",
-         "place_id" : "ChIJlQVD6CASK4cRGJlmQDTMRZA",
-         "types" : [ "courthouse", "establishment", "point_of_interest" ]
+         "place_id" : "ChIJWU-P0-AIK4cRGS5DOUNQVdA",
+         "types" : [
+            "bar",
+            "establishment",
+            "food",
+            "meal_takeaway",
+            "point_of_interest",
+            "restaurant"
+         ]
       }
    ],
    "routes" : [
       {
          "bounds" : {
             "northeast" : {
-               "lat" : 33.4460903,
-               "lng" : -111.934386
+               "lat" : 33.4244982,
+               "lng" : -111.9243877
             },
             "southwest" : {
-               "lat" : 33.3856731,
-               "lng" : -112.0751642
+               "lat" : 33.391311,
+               "lng" : -111.9263197
             }
          },
-         "copyrights" : "Map data ©2022",
+         "copyrights" : "Map data ©2022 Google",
          "legs" : [
             {
                "distance" : {
-                  "text" : "11.3 mi",
-                  "value" : 18254
+                  "text" : "2.5 mi",
+                  "value" : 4022
                },
                "duration" : {
-                  "text" : "17 mins",
-                  "value" : 1047
+                  "text" : "10 mins",
+                  "value" : 584
                },
-               "end_address" : "101 W Madison St, Phoenix, AZ 85003, USA",
+               "end_address" : "705 S Rural Rd #104, Tempe, AZ 85281, USA",
                "end_location" : {
-                  "lat" : 33.4458961,
-                  "lng" : -112.0751642
+                  "lat" : 33.4238372,
+                  "lng" : -111.9258281
                },
-               "start_address" : "Tempe, AZ 85282, USA",
+               "start_address" : "3409 S Rural Rd, Tempe, AZ 85282, USA",
                "start_location" : {
-                  "lat" : 33.3895763,
-                  "lng" : -111.934386
+                  "lat" : 33.3913654,
+                  "lng" : -111.9248402
                },
                "steps" : [
                   {
                      "distance" : {
-                        "text" : "184 ft",
-                        "value" : 56
+                        "text" : "138 ft",
+                        "value" : 42
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 8
+                        "value" : 18
                      },
                      "end_location" : {
-                        "lat" : 33.389605,
-                        "lng" : -111.9349862
+                        "lat" : 33.391311,
+                        "lng" : -111.9244136
                      },
-                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eE La Jolla Dr\u003c/b\u003e toward \u003cb\u003eS College Ave\u003c/b\u003e",
+                     "html_instructions" : "Head \u003cb\u003eeast\u003c/b\u003e toward \u003cb\u003eE Southern Ave\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
                      "polyline" : {
-                        "points" : "{kxjE|dejT?BA`@AZAZ@X"
+                        "points" : "awxjEficjT?C@]?IBE@EBA@CAW"
                      },
                      "start_location" : {
-                        "lat" : 33.3895763,
-                        "lng" : -111.934386
+                        "lat" : 33.3913654,
+                        "lng" : -111.9248402
                      },
                      "travel_mode" : "DRIVING"
                   },
                   {
                      "distance" : {
-                        "text" : "295 ft",
-                        "value" : 90
+                        "text" : "0.1 mi",
+                        "value" : 183
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 12
+                        "value" : 51
                      },
                      "end_location" : {
-                        "lat" : 33.3904119,
-                        "lng" : -111.9349672
+                        "lat" : 33.3929583,
+                        "lng" : -111.9243877
                      },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eS College Ave\u003c/b\u003e",
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eE Southern Ave\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "uvxjEpfcjT{BAcDAi@?"
+                     },
+                     "start_location" : {
+                        "lat" : 33.391311,
+                        "lng" : -111.9244136
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 mi",
+                        "value" : 179
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : 33.3929464,
+                        "lng" : -111.9263197
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eE Southern Ave\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "_ayjElfcjT?hB?N?n@?l@?\\?R@Z?@?J?P?F?F?j@"
+                     },
+                     "start_location" : {
+                        "lat" : 33.3929583,
+                        "lng" : -111.9243877
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "2.2 mi",
+                        "value" : 3512
+                     },
+                     "duration" : {
+                        "text" : "7 mins",
+                        "value" : 444
+                     },
+                     "end_location" : {
+                        "lat" : 33.424496,
+                        "lng" : -111.9262175
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eS Rural Rd\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003ePass by Jimmy John's (on the left)\u003c/div\u003e",
                      "maneuver" : "turn-right",
                      "polyline" : {
-                        "points" : "_lxjEthejT_@Am@?I?iAA"
+                        "points" : "}`yjEnrcjTmB?Y?w@?s@?g@?Q?S?_@?[?C?A?Q@aBAcA?uA?g@?U?qAAqA?oA?mA?E?kA?iAAG?iB?s@?WAy@?U?mA?[@S?C?]?iA?wBA_@?c@?I?cA?gA?iA?{@?A?O?_@?i@?aB?SAcA?_@?aAAE?K@s@?cAAi@@i@?W?G?e@Ay@AU?U?{@?o@?S?eA?mC@kA@Q?w@?_A?S?aBA[?{B?cA?]?U?S?C?w@?O?{@?Q?i@?m@@W?{@?c@?uAAQ@mA?W?[?M@c@?KAi@@o@?[?}A?y@?iA@uAAC?yB?Q?s@?c@?Q?Q?s@?e@?g@BQSU@O?I?oCAc@?e@?O@e@Ac@?k@?{B?g@?oB?oC@mA?"
                      },
                      "start_location" : {
-                        "lat" : 33.389605,
-                        "lng" : -111.9349862
+                        "lat" : 33.3929464,
+                        "lng" : -111.9263197
                      },
                      "travel_mode" : "DRIVING"
                   },
                   {
                      "distance" : {
-                        "text" : "0.3 mi",
-                        "value" : 429
+                        "text" : "98 ft",
+                        "value" : 30
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 54
+                        "value" : 10
                      },
                      "end_location" : {
-                        "lat" : 33.390691,
-                        "lng" : -111.9395542
+                        "lat" : 33.4244982,
+                        "lng" : -111.925896
                      },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eE Pebble Beach Dr\u003c/b\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "aqxjEphejTADADAH?rA?BAf@A^APAREh@Gd@Kn@El@En@El@Ar@AdA@Z?L@dA?z@?d@@~A"
-                     },
-                     "start_location" : {
-                        "lat" : 33.3904119,
-                        "lng" : -111.9349672
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.3 mi",
-                        "value" : 520
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 53
-                     },
-                     "end_location" : {
-                        "lat" : 33.386023,
-                        "lng" : -111.9395239
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eS Mill Ave\u003c/b\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "yrxjEdefjTtAA|AAJ?H?pBAX?j@@|AANAV@nAA\\@N?PFH?J?D?L?d@?tAEV@b@Aj@A"
-                     },
-                     "start_location" : {
-                        "lat" : 33.390691,
-                        "lng" : -111.9395542
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "1.8 mi",
-                        "value" : 2833
-                     },
-                     "duration" : {
-                        "text" : "2 mins",
-                        "value" : 118
-                     },
-                     "end_location" : {
-                        "lat" : 33.3911184,
-                        "lng" : -111.9674298
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e to merge onto \u003cb\u003eUS-60 W\u003c/b\u003e",
-                     "maneuver" : "ramp-right",
-                     "polyline" : {
-                        "points" : "suwjE~dfjT?v@?J?L@^?X@`@@f@Dt@HvCF|AFlAB`@?B@H?FBf@?J@V@N?n@@Z@XDVDN?d@?dF?zE?bB?R?vD?jF@`F?tH?p@ElE?\\Aj@?J?@?^Ab@A\\C`AEf@Cb@OjBGn@Gl@G`@Ij@CNIf@Mj@Or@ERIZI\\s@nCGRERGR_@xAGVWbAa@pB]bBSpAKp@?@?DMx@MrAANKbAC\\AJARMtAEd@ATI~@KrAEh@Iz@Ed@C\\CNCXEVEVI^?@Ol@M^ABIRELMXWb@GHKNGJCBIJMNEDUTYVA?WRGDWLYNKDSHQFKBQDQDOBC?MBQBQ@U@w@@O@QH"
-                     },
-                     "start_location" : {
-                        "lat" : 33.386023,
-                        "lng" : -111.9395239
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "5.0 mi",
-                        "value" : 8096
-                     },
-                     "duration" : {
-                        "text" : "5 mins",
-                        "value" : 275
-                     },
-                     "end_location" : {
-                        "lat" : 33.4264254,
-                        "lng" : -112.0284009
-                     },
-                     "html_instructions" : "Merge onto \u003cb\u003eI-10 W\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eUS-60 W\u003c/b\u003e",
-                     "maneuver" : "merge",
-                     "polyline" : {
-                        "points" : "ouxjElskjTwFEOAS?]AQ@A?K?E?A?_@?iBAyCE}@?c@AaGEWBU?c@?q@Ai@?y@AsBG}AA}BA]AeCCy@?iBAY@U?w@@y@DoAHsALWBa@Fy@Ni@HA?MBC@UFC?_@JcAXm@Nc@Nk@RcA`@_Ab@u@\\E@YPk@\\WLs@d@e@ZUPCD{@v@iAbAuBtBQREFu@`A_@d@o@|@y@pAABQXABOV?@uApCs@dBg@pAa@pAIXOd@c@bBI\\A@Kf@?@UdA[`BOfAABIt@Ih@Eb@Gl@Er@En@AFAL?J?@ALAHCbACdAEvF?zB?hJ?bB?z@?fA?`D@nB?z@A`D@hM?vB?tABvA?nA?r@?zD?X@rD?fA?xC?fB@nA?LAL?J?H?L?B@bGBtI@vC?l@BxB?f@BtH?v@?r@?fAC^@p@@vB?|@?l@@nBArACzBCjAIzAEv@Cd@CZMfACVOpAQhAYbBEPWnAEPSt@Mh@IX[dAi@~Aa@bAELO^CBENUf@Wf@e@~@o@hAu@lAA@k@x@_@f@SVMP_@b@QPWXk@l@QRCB[Xu@n@}AlAA@sAfAo@f@cBtAwAfA}AlAk@d@UNSPiBxAuAfAu@j@k@b@]\\c@Zc@\\c@^e@^a@\\a@\\c@^_@\\a@^A?a@`@QNQP_@`@_@`@a@b@UTGH_@b@IHABUVA@AB[^]d@]d@]d@[f@W`@EDQXIL[f@EHA@QZ[j@Yf@Yj@Yf@Wj@Uf@Uf@Uh@Uf@Uh@Qf@Ob@CDENMZQh@Qh@Qj@Qh@Ql@_@pA[pAc@tB"
-                     },
-                     "start_location" : {
-                        "lat" : 33.3911184,
-                        "lng" : -111.9674298
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.8 mi",
-                        "value" : 1309
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 45
-                     },
-                     "end_location" : {
-                        "lat" : 33.42742,
-                        "lng" : -112.042219
-                     },
-                     "html_instructions" : "Keep \u003cb\u003eright\u003c/b\u003e at the fork to continue on \u003cb\u003eUS-60 W\u003c/b\u003e, follow signs for \u003cb\u003eFlagstaff\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eI-17\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eI-10 Truck Rte\u003c/b\u003e",
-                     "maneuver" : "fork-right",
-                     "polyline" : {
-                        "points" : "er_kEnpwjTQ^CJK^OhAM~@]fCANGd@EVET?@ENuAdKAFM|@Gj@CNANCPCVIz@CNC\\APGz@Ez@E~@ANAb@Ar@?@@T?X?L?f@@n@@F?P@P@P?RB`@@J?B@R@N?DFh@?BFp@D\\?@BRH|@F~@F|@D`A@T?@Bd@?XBb@@|@@v@?D?T?P?h@?N@fF"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4264254,
-                        "lng" : -112.0284009
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "1.0 mi",
-                        "value" : 1574
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 55
-                     },
-                     "end_location" : {
-                        "lat" : 33.4286716,
-                        "lng" : -112.0590518
-                     },
-                     "html_instructions" : "Continue onto \u003cb\u003eI-17 N\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eUS-60 W\u003c/b\u003e",
-                     "polyline" : {
-                        "points" : "kx_kEzfzjT?`C?rA@b@?z@@zD?pF@jD?tA@j@?v@?@?L?P?r@?z@EbCCpBE|ACl@?BCp@InBIvACj@Gv@?DC`@IdAEb@c@xFM`BGp@SfC_@rEUtCSdCYjDC`@"
-                     },
-                     "start_location" : {
-                        "lat" : 33.42742,
-                        "lng" : -112.042219
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.3 mi",
-                        "value" : 475
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 29
-                     },
-                     "end_location" : {
-                        "lat" : 33.4293994,
-                        "lng" : -112.064073
-                     },
-                     "html_instructions" : "Take exit \u003cb\u003e195B\u003c/b\u003e toward \u003cb\u003eCentral Ave\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003e7th St\u003c/b\u003e",
-                     "maneuver" : "ramp-right",
-                     "polyline" : {
-                        "points" : "e``kE`p}jTKPAFIz@Gr@WxCEh@Ef@CJC\\Gh@KjAEh@E^AF?@?@Eh@CZALARCRAf@Cl@?@AT?T?DAZ?FAf@AL?HCT"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4286716,
-                        "lng" : -112.0590518
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "180 ft",
-                        "value" : 55
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 8
-                     },
-                     "end_location" : {
-                        "lat" : 33.4293599,
-                        "lng" : -112.0646676
-                     },
-                     "html_instructions" : "Continue onto \u003cb\u003eW Maricopa Fwy\u003c/b\u003e",
-                     "polyline" : {
-                        "points" : "wd`kElo~jTFvB"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4293994,
-                        "lng" : -112.064073
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.9 mi",
-                        "value" : 1447
-                     },
-                     "duration" : {
-                        "text" : "2 mins",
-                        "value" : 131
-                     },
-                     "end_location" : {
-                        "lat" : 33.4421743,
-                        "lng" : -112.0652638
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eS 7th St\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003ePass by Enterprise Rent-A-Car (on the right in 0.4&nbsp;mi)\u003c/div\u003e",
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at \u003cb\u003eE 6th St\u003c/b\u003e",
                      "maneuver" : "turn-right",
                      "polyline" : {
-                        "points" : "od`kEds~jTCFAJALCJCDCDCDA@C@C@C@[JS?w@AgA?}AAuAC_BAc@Aw@?yACwA?cC@sAAoA?gA@O?gA?y@?]?s@?iCBgCAkA?kB?u@?iBBkA@aABuBHqABsBJaCH"
+                        "points" : "cf_kEzqcjT?O?o@"
                      },
                      "start_location" : {
-                        "lat" : 33.4293599,
-                        "lng" : -112.0646676
+                        "lat" : 33.424496,
+                        "lng" : -111.9262175
                      },
                      "travel_mode" : "DRIVING"
                   },
                   {
                      "distance" : {
-                        "text" : "0.5 mi",
-                        "value" : 791
+                        "text" : "249 ft",
+                        "value" : 76
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 79
+                        "value" : 18
                      },
                      "end_location" : {
-                        "lat" : 33.4421878,
-                        "lng" : -112.0737843
+                        "lat" : 33.4238372,
+                        "lng" : -111.9258281
                      },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eE Lincoln St\u003c/b\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "qtbkEzv~jT?f@?z@?tAAh@?D?fE?tF?`@?hB?nBAz@?V?hD?bC?`A?bA?z@@z@?RA\\@`@An@"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4421743,
-                        "lng" : -112.0652638
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.3 mi",
-                        "value" : 434
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 59
-                     },
-                     "end_location" : {
-                        "lat" : 33.4460903,
-                        "lng" : -112.0738195
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eS Central Ave\u003c/b\u003e",
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
                      "maneuver" : "turn-right",
                      "polyline" : {
-                        "points" : "utbkEbl`kTkB@}A?i@@[?A?E?[@c@?[?G?[?G?c@?M?K?A?S?M?Y?E?]?aB@iB?"
+                        "points" : "cf_kEzocjTtBAD?DC@G"
                      },
                      "start_location" : {
-                        "lat" : 33.4421878,
-                        "lng" : -112.0737843
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "410 ft",
-                        "value" : 125
-                     },
-                     "duration" : {
-                        "text" : "2 mins",
-                        "value" : 112
-                     },
-                     "end_location" : {
-                        "lat" : 33.4460793,
-                        "lng" : -112.0751617
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eW Madison St\u003c/b\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "amckEjl`kT@zA?x@?V?dA?V"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4460903,
-                        "lng" : -112.0738195
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "66 ft",
-                        "value" : 20
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 9
-                     },
-                     "end_location" : {
-                        "lat" : 33.4458961,
-                        "lng" : -112.0751642
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eS 1st Ave\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "_mckEvt`kTb@?"
-                     },
-                     "start_location" : {
-                        "lat" : 33.4460793,
-                        "lng" : -112.0751617
+                        "lat" : 33.4244982,
+                        "lng" : -111.925896
                      },
                      "travel_mode" : "DRIVING"
                   }
@@ -408,9 +201,9 @@
             }
          ],
          "overview_polyline" : {
-            "points" : "{kxjE|dejTE|A@X_@Aw@?iAAADCNC~CQtBQ|AK|ACxB@h@BfG~MEtC?N?PFT?nCEz@?j@A?v@?X@x@RvGXvGDrBFp@DN?d@?`M?vB@z\\IzKOjDWzCOnAWbBm@nCsC~K_AtE_@bCM`Aw@`Ju@bJYhB_@rAO`@e@|@_@h@s@v@{@p@qAl@aAVs@JoBFQHwFEc@Aq@?wHGcJGm@BuAAcBAqEI{IGqE@iCNkBPgC`@k@LuDdAoBt@uB`AcB~@yA`AYVeCzBgChCkClDoArBOXuApCs@dBiAbDY~@{@jDUfAk@hD[fCWtDK`DErJ?lM@tK?~WBpH@pM?pKNzf@?jBCfBBtG?bEGfEWtEQ~Aa@zC}@vEgA~DkAbDUl@w@bBuAhCw@nAmBjCuB|BUVqAhAcF~DyMlKuEtDqCxBgCxBwApAsBxBgAlAqCrDyBjDaBzC}AbDsAbDg@tAgAhDq@~B_AfEUj@K^OhAk@fEIt@Q~@mBvNa@dESvDEhBF`EJzBb@vEVtEFdBBpC@rHDd^@tFS`KW|FOjCaAdMqAbPm@pHC`@KPKbA_@lESzBg@tFQfDE~BAVCTFvBEREXMRg@PqFCqGGqDCwE?oF@uGBuJAuDDwDLeENaCH?f@?pCAn@?hQArT@nCAn@kB@gC@_A@cB?cC?oF@@rF?Vb@?"
+            "points" : "awxjEficjT@a@BODG?[_HCi@??hB?~@?jA@|@?lAaJ?wI?sNC}DAyD@eIAoUAmHCgMBgNAmF?aTBaM?}B?g@BQSe@@cFAeC?cL@mA??O?o@tBAJC@G"
          },
-         "summary" : "I-10 W",
+         "summary" : "S Rural Rd",
          "warnings" : [],
          "waypoint_order" : []
       }

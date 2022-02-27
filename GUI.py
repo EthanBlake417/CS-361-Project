@@ -1,49 +1,111 @@
 import csv
 import json
-import time
 from tkinter import *
-from tkinter import ttk
-from place_finder_api import place_finder
 from geocoding_api import get_lat_lon
 import tkinter
 from tkintermapview import TkinterMapView
 from tkinter import ttk
 import os
+from tkhtmlview import HTMLLabel
 
 
 def ceil(a, b):
+    """ performs a ceiling divide"""
     return -1 * (-a // b)
+
+
+def call_maps_api(og_lat, og_lon, lat, lon):
+    """ calls maps api and returns information"""
+    # send data request
+    with open('input2.txt', 'w') as f:
+        json.dump([og_lat, og_lon, lat, lon], f)
+    while True:
+        try:
+            with open('status2.txt', 'r'):
+                break
+        except FileNotFoundError:
+            continue
+    if os.path.exists("status2.txt"):
+        os.remove("status2.txt")
+    # load data
+    with open('directions.txt', 'r') as f:
+        data = json.load(f)
+        # basic starting information:
+        distance = data["routes"][0]['legs'][0]['distance']['text']
+        duration = data["routes"][0]['legs'][0]['duration']['text']
+        end_address = data["routes"][0]['legs'][0]['end_address']
+        start_address = data["routes"][0]['legs'][0]['start_address']
+        # directions information
+        distances_list = []
+        durations_list = []
+        start_locations = []
+        end_locations = []
+        html_instructions = []
+        for i in range(len(data["routes"][0]['legs'][0]["steps"])):
+            distances_list.append(data["routes"][0]['legs'][0]["steps"][i]['distance']['text'])
+            durations_list.append(data["routes"][0]['legs'][0]["steps"][i]['duration']['text'])
+            start_locations.append((data["routes"][0]['legs'][0]["steps"][i]['start_location']['lat'], data["routes"][0]['legs'][0]["steps"][i]['start_location']['lng']))
+            end_locations.append((data["routes"][0]['legs'][0]["steps"][i]['end_location']['lat'], data["routes"][0]['legs'][0]["steps"][i]['end_location']['lng']))
+            html_instructions.append(data["routes"][0]['legs'][0]["steps"][i]['html_instructions'])
+    return distance, duration, end_address, start_address, distances_list, durations_list, start_locations, end_locations, html_instructions
 
 
 def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
     """ embed google maps in tkinter"""
+    # get data
+    distance, duration, end_address, start_address, distances_list, durations_list, start_locations, end_locations, html_instructions = call_maps_api(og_lat, og_lon, lat, lon)
+    # destroy old directions
     for widgets in tab3.winfo_children():
         widgets.destroy()
     # create map widget
-    map_widget = TkinterMapView(tab3, width=600, height=400, corner_radius=0)
+    frame = Frame(tab3)
+    frame.place(anchor=NW, width=800, height=750)
+    map_widget = TkinterMapView(frame)
     map_widget.pack(fill="both", expand=True)
     map_widget.set_position(og_lat, og_lon)
     map_widget.set_zoom(12)
-    marker_2 = map_widget.set_marker(og_lat, og_lon, text="Home")
-    marker_3 = map_widget.set_marker(lat, lon, text=name)
-    marker_4 = map_widget.set_marker(33.445897, -112.075257, text="Random Location")
-    path_1 = map_widget.set_path([marker_2.position, marker_3.position])
-    path_2 = map_widget.set_path([marker_3.position, marker_4.position])
-
+    for i in range(len(start_locations)):
+        if i == 0:
+            map_widget.set_path([map_widget.set_marker(start_locations[i][0], start_locations[i][1], text=f"Starting Location").position, (end_locations[i][0], end_locations[i][1])])
+        elif i < len(start_locations)-1:
+            map_widget.set_path([(start_locations[i][0], start_locations[i][1]), (end_locations[i][0], end_locations[i][1])])
+        else:
+            map_widget.set_path([(start_locations[i][0], start_locations[i][1]), map_widget.set_marker(end_locations[i][0], end_locations[i][1], text=f"{name}").position])
     # google normal tile server
     map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
     tabControl.select(tab3)
 
+    # Directions HTML
+    frame2 = Frame(tab3)
+    frame2.place(anchor=NW, x=800, width=400, height=750)
+    html = ""
+    html += f"""<h6>{start_address}</h6>"""
+    for i in range(len(html_instructions)):
+        html += f"""<h6>{html_instructions[i]}</h6>"""
+        html += f"""<p>{distances_list[i]}: ({durations_list[i]})</p>"""
+    html += f"""<h6>{end_address}</h6>"""
+    # print(html)
+    my_label = HTMLLabel(frame2, html=html, height=750, width=400)
+    my_label.pack(pady=20, padx=20)
 
-def get_directions(tab3, tabControl, lat, lon, name):
-    og_lat, og_lon = get_lat_lon("85282", "US")
+    # print(distance, duration, end_address, start_address)
+    # print(distances_list)
+    # print(durations_list)
+    # print(start_locations)
+    # print(end_locations)
+    # print(html_instructions)
+
+
+def get_directions(tab3, tabControl, lat, lon, name, zipcode):
+    """ used to get latitude and longitude, and to call the embedded google maps widget"""
+    og_lat, og_lon = get_lat_lon(zipcode, "US")
     embed_google_maps(float(og_lat), float(og_lon), lat, lon, name, tab3, tabControl)
 
 
 def main():
+    """ This is the main portion of the widget where most of the stuff is set up"""
     # set up the widget
     root = tkinter.Tk()
-    # print(root.themes)
     root.title("Place Finder")
     tabControl = ttk.Notebook(root)
 
@@ -173,6 +235,8 @@ def main():
             csv_reader = csv.reader(file)
             for row in csv_reader:  # Rows
                 for j in range(width):  # Columns
+                    if j == 6 or j == 7 or j == 8:
+                        continue
                     if i == 0:
                         if j == 9:
                             b = Label(frame_2, text='Directions')
@@ -185,8 +249,7 @@ def main():
                         b.grid(row=i, column=j)
                         b.insert(0, row[j])
                     else:
-                        print(row[j - 9])
-                        Button(frame_2, text="Get Directions", command=lambda row=row, j=j: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9]))).grid(row=i, column=j)
+                        Button(frame_2, text="Get Directions", command=lambda row=row, j=j: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9]), str(zip_code.get()))).grid(row=i, column=j)
                 i += 1
         if os.path.exists("status.txt"):
             os.remove("status.txt")
