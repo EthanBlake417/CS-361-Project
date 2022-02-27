@@ -16,10 +16,9 @@ def ceil(a, b):
 
 
 def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
-    # window3 = tkinter.Toplevel(root)
-    # window3.geometry(f"{1200}x{600}")
-    # window3.title("Directions.py")
-
+    """ embed google maps in tkinter"""
+    for widgets in tab3.winfo_children():
+        widgets.destroy()
     # create map widget
     map_widget = TkinterMapView(tab3, width=600, height=400, corner_radius=0)
     map_widget.pack(fill="both", expand=True)
@@ -27,7 +26,9 @@ def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
     map_widget.set_zoom(12)
     marker_2 = map_widget.set_marker(og_lat, og_lon, text="Home")
     marker_3 = map_widget.set_marker(lat, lon, text=name)
+    marker_4 = map_widget.set_marker(33.445897, -112.075257, text="Random Location")
     path_1 = map_widget.set_path([marker_2.position, marker_3.position])
+    path_2 = map_widget.set_path([marker_3.position, marker_4.position])
 
     # google normal tile server
     map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
@@ -163,8 +164,8 @@ def main():
         title4 = ttk.Label(tab2, text="Note: if you run the search again you\nwill lose your previous results. ")
         title4.config(font=("Courier", 12))
         title4.place(x=450, y=90, width=461, height=41)
-        treeview_frame = ttk.Frame(tab2)
-        treeview_frame.place(anchor=NW, y=150, height=700, width=1200)
+        frame_2 = ttk.Frame(tab2)
+        frame_2.place(anchor=NW, y=150, height=700, width=1200)
         filename = 'output.csv'
         with open(filename, 'r') as file:
             i = 0
@@ -174,19 +175,18 @@ def main():
                 for j in range(width):  # Columns
                     if i == 0:
                         if j == 9:
-                            b = Label(treeview_frame, text='Directions')
+                            b = Label(frame_2, text='Directions')
                             b.grid(row=i, column=j)
                         else:
-                            b = Label(treeview_frame, text=f'{row[j]}')
+                            b = Label(frame_2, text=f'{row[j]}')
                             b.grid(row=i, column=j)
                     elif j != width - 1:
-                        b = Entry(treeview_frame)
+                        b = Entry(frame_2)
                         b.grid(row=i, column=j)
                         b.insert(0, row[j])
                     else:
                         print(row[j - 9])
-                        b = Button(treeview_frame, text="Get Directions", command=lambda: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9])))
-                        b.grid(row=i, column=j)
+                        Button(frame_2, text="Get Directions", command=lambda row=row, j=j: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9]))).grid(row=i, column=j)
                 i += 1
         if os.path.exists("status.txt"):
             os.remove("status.txt")
