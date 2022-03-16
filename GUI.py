@@ -14,19 +14,29 @@ def ceil(a, b):
     return -1 * (-a // b)
 
 
-def call_maps_api(og_lat, og_lon, lat, lon):
-    """ calls maps api and returns information"""
+def send_data_request(og_lat, og_lon, lat, lon):
+    """ sends the data request"""
     # send data request
     with open('input2.txt', 'w') as f:
         json.dump([og_lat, og_lon, lat, lon], f)
+
+
+def check_if_file_exists(status: str):
+    """ checks if the file exists"""
     while True:
         try:
-            with open('status2.txt', 'r'):
+            with open(status, 'r'):
                 break
         except FileNotFoundError:
             continue
-    if os.path.exists("status2.txt"):
-        os.remove("status2.txt")
+    if os.path.exists(status):
+        os.remove(status)
+
+
+def call_maps_api(og_lat, og_lon, lat, lon):
+    """ calls maps api and returns information"""
+    send_data_request(og_lat, og_lon, lat, lon)
+    check_if_file_exists("status2.txt")
     # load data
     with open('directions.txt', 'r') as f:
         data = json.load(f)
@@ -36,17 +46,15 @@ def call_maps_api(og_lat, og_lon, lat, lon):
         end_address = data["routes"][0]['legs'][0]['end_address']
         start_address = data["routes"][0]['legs'][0]['start_address']
         # directions information
-        distances_list = []
-        durations_list = []
-        start_locations = []
-        end_locations = []
-        html_instructions = []
+        distances_list, durations_list, start_locations, end_locations, html_instructions = [], [], [], [], []
+        # parse JSON
         for i in range(len(data["routes"][0]['legs'][0]["steps"])):
             distances_list.append(data["routes"][0]['legs'][0]["steps"][i]['distance']['text'])
             durations_list.append(data["routes"][0]['legs'][0]["steps"][i]['duration']['text'])
             start_locations.append((data["routes"][0]['legs'][0]["steps"][i]['start_location']['lat'], data["routes"][0]['legs'][0]["steps"][i]['start_location']['lng']))
             end_locations.append((data["routes"][0]['legs'][0]["steps"][i]['end_location']['lat'], data["routes"][0]['legs'][0]["steps"][i]['end_location']['lng']))
             html_instructions.append(data["routes"][0]['legs'][0]["steps"][i]['html_instructions'])
+    # return data
     return distance, duration, end_address, start_address, distances_list, durations_list, start_locations, end_locations, html_instructions
 
 
@@ -80,26 +88,56 @@ def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
     frame2.place(anchor=NW, x=800, width=400, height=750)
     html = ""
     html += f"""<h6>{start_address}</h6>"""
+    html += f"""<p>Total: {distance}: ({duration})</p>"""
     for i in range(len(html_instructions)):
         html += f"""<h6>{html_instructions[i]}</h6>"""
         html += f"""<p>{distances_list[i]}: ({durations_list[i]})</p>"""
     html += f"""<h6>{end_address}</h6>"""
-    # print(html)
     my_label = HTMLLabel(frame2, html=html, height=750, width=400)
     my_label.pack(pady=20, padx=20)
-
-    # print(distance, duration, end_address, start_address)
-    # print(distances_list)
-    # print(durations_list)
-    # print(start_locations)
-    # print(end_locations)
-    # print(html_instructions)
 
 
 def get_directions(tab3, tabControl, lat, lon, name, zipcode):
     """ used to get latitude and longitude, and to call the embedded google maps widget"""
     og_lat, og_lon = get_lat_lon(zipcode, "US")
     embed_google_maps(float(og_lat), float(og_lon), lat, lon, name, tab3, tabControl)
+
+
+def output_results(tab2, tab3, tabControl, zip_code):
+    """ helper function for main"""
+    title3 = ttk.Label(tab2, text="Here are Your Results! ")
+    title3.config(font=("Courier", 16))
+    title3.place(x=450, y=40, width=461, height=41)
+    title4 = ttk.Label(tab2, text="Note: if you run the search again you\nwill lose your previous results. ")
+    title4.config(font=("Courier", 12))
+    title4.place(x=450, y=90, width=461, height=41)
+    frame_2 = ttk.Frame(tab2)
+    frame_2.place(anchor=NW, y=150, height=700, width=1200)
+    filename = 'output.csv'
+    with open(filename, 'r') as file:
+        i = 0
+        width = 10
+        csv_reader = csv.reader(file)
+        for row in csv_reader:  # Rows
+            for j in range(width):  # Columns
+                if j == 6 or j == 7 or j == 8:
+                    continue
+                if i == 0:
+                    if j == 9:
+                        b = Label(frame_2, text='Directions')
+                        b.grid(row=i, column=j)
+                    else:
+                        b = Label(frame_2, text=f'{row[j]}')
+                        b.grid(row=i, column=j)
+                elif j != width - 1:
+                    b = Entry(frame_2)
+                    b.grid(row=i, column=j)
+                    b.insert(0, row[j])
+                else:
+                    Button(frame_2, text="Get Directions",
+                           command=lambda row=row, j=j: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9]), str(zip_code.get()))).grid(row=i, column=j)
+            i += 1
+    tabControl.select(tab2)
 
 
 def main():
@@ -109,6 +147,7 @@ def main():
     root.title("Place Finder")
     tabControl = ttk.Notebook(root)
 
+    # set up tabs
     tab1 = ttk.Frame(tabControl)
     tab2 = ttk.Frame(tabControl)
     tab3 = ttk.Frame(tabControl)
@@ -117,9 +156,9 @@ def main():
     tabControl.add(tab2, text='Search Results')
     tabControl.add(tab3, text='Directions')
     tabControl.pack(expand=1, fill="both")
-    # root.attributes('-fullscreen', True)
-    root.geometry("1200x750")  # this is how one would set up a standard widget size.
+    root.geometry("1200x800")  # this is how one would set up a standard widget size.
 
+    # set up overall frame
     overall_frame = ttk.Frame(tab1)
     overall_frame.place(anchor=NW, height=775, width=858)
 
@@ -194,7 +233,7 @@ def main():
     num_results.insert(0, "1")
 
     def run():
-        # if Restaurants checked
+        # query the checkboxes
         kinds = []
         if restaurants.get() == 1:
             kinds.append('restaurants')
@@ -210,50 +249,13 @@ def main():
             kinds.append('shops')
         if transport.get() == 1:
             kinds.append('transport')
-        #    run restaurant api. these things are to be decided in the future
+        # dump data
         with open('input.txt', 'w') as f:
             json.dump([str(zip_code.get()), 'US', int(search_radius.get()), str(ceil(int(num_results.get()), len(kinds))), kinds], f)
         # open new window with results
-        while True:
-            try:
-                with open('status.txt', 'r'):
-                    break
-            except FileNotFoundError:
-                continue
-        title3 = ttk.Label(tab2, text="Here are Your Results! ")
-        title3.config(font=("Courier", 16))
-        title3.place(x=450, y=40, width=461, height=41)
-        title4 = ttk.Label(tab2, text="Note: if you run the search again you\nwill lose your previous results. ")
-        title4.config(font=("Courier", 12))
-        title4.place(x=450, y=90, width=461, height=41)
-        frame_2 = ttk.Frame(tab2)
-        frame_2.place(anchor=NW, y=150, height=700, width=1200)
-        filename = 'output.csv'
-        with open(filename, 'r') as file:
-            i = 0
-            width = 10
-            csv_reader = csv.reader(file)
-            for row in csv_reader:  # Rows
-                for j in range(width):  # Columns
-                    if j == 6 or j == 7 or j == 8:
-                        continue
-                    if i == 0:
-                        if j == 9:
-                            b = Label(frame_2, text='Directions')
-                            b.grid(row=i, column=j)
-                        else:
-                            b = Label(frame_2, text=f'{row[j]}')
-                            b.grid(row=i, column=j)
-                    elif j != width - 1:
-                        b = Entry(frame_2)
-                        b.grid(row=i, column=j)
-                        b.insert(0, row[j])
-                    else:
-                        Button(frame_2, text="Get Directions", command=lambda row=row, j=j: get_directions(tab3, tabControl, float(row[j - 3]), float(row[j - 2]), str(row[j - 9]), str(zip_code.get()))).grid(row=i, column=j)
-                i += 1
-        if os.path.exists("status.txt"):
-            os.remove("status.txt")
-        tabControl.select(tab2)
+        check_if_file_exists("status.txt")
+        # put out the results
+        output_results(tab2, tab3, tabControl, zip_code)
 
     run_search = Button(tab1, text='Run Search', command=run)
     run_search.place(x=535, y=290, width=151, height=71)

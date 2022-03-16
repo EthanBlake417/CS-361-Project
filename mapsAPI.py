@@ -4,12 +4,9 @@ import os
 
 
 def maps_api_helper(start_lat, start_lon, end_lat, end_lon):
+    """helper function for maps_api"""
     endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
     api_key = 'AIzaSyDrUKf_920c0swkWkkNJquund5qDDroeqg'
-    origin = start_lat, start_lon
-    destination = end_lat, end_lon
-    origin = str(origin).replace(' ', '')
-    destination = str(destination).replace(' ', '')
     nav_request = f'origin={start_lat},{start_lon}&destination={end_lat},{end_lon}&mode=driving&key={api_key}'
     url = endpoint + nav_request
 
@@ -23,6 +20,7 @@ def maps_api_helper(start_lat, start_lon, end_lat, end_lon):
 
 
 def maps_api():
+    """ outputs JSON """
     while True:
         try:
             with open('input2.txt', 'r') as f:
