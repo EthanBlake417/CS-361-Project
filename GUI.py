@@ -21,22 +21,35 @@ def send_data_request(og_lat, og_lon, lat, lon):
         json.dump([og_lat, og_lon, lat, lon], f)
 
 
-def check_if_file_exists(status: str):
+# the two status checks must be separate in case they are running at the same time.
+def check_if_status_exists():
     """ checks if the file exists"""
     while True:
         try:
-            with open(status, 'r'):
+            with open("status.txt", 'r'):
                 break
         except FileNotFoundError:
             continue
-    if os.path.exists(status):
-        os.remove(status)
+    if os.path.exists("status.txt"):
+        os.remove("status.txt")
+
+
+def check_if_status2_exists():
+    """ checks if the file exists"""
+    while True:
+        try:
+            with open("status2.txt", 'r'):
+                break
+        except FileNotFoundError:
+            continue
+    if os.path.exists("status2.txt"):
+        os.remove("status2.txt")
 
 
 def call_maps_api(og_lat, og_lon, lat, lon):
     """ calls maps api and returns information"""
     send_data_request(og_lat, og_lon, lat, lon)
-    check_if_file_exists("status2.txt")
+    check_if_status2_exists()
     # load data
     with open('directions.txt', 'r') as f:
         data = json.load(f)
@@ -56,6 +69,22 @@ def call_maps_api(og_lat, og_lon, lat, lon):
             html_instructions.append(data["routes"][0]['legs'][0]["steps"][i]['html_instructions'])
     # return data
     return distance, duration, end_address, start_address, distances_list, durations_list, start_locations, end_locations, html_instructions
+
+
+def directions_html(distance, duration, end_address, start_address, distances_list, durations_list, html_instructions, tab3):
+    """ creates the directions portion of the google maps """
+    # Directions HTML
+    frame2 = Frame(tab3)
+    frame2.place(anchor=NW, x=800, width=400, height=750)
+    html = ""
+    html += f"""<h6>{start_address}</h6>"""
+    html += f"""<p>Total: {distance}: ({duration})</p>"""
+    for i in range(len(html_instructions)):
+        html += f"""<h6>{html_instructions[i]}</h6>"""
+        html += f"""<p>{distances_list[i]}: ({durations_list[i]})</p>"""
+    html += f"""<h6>{end_address}</h6>"""
+    my_label = HTMLLabel(frame2, html=html, height=750, width=400)
+    my_label.pack(pady=20, padx=20)
 
 
 def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
@@ -82,19 +111,8 @@ def embed_google_maps(og_lat, og_lon, lat, lon, name, tab3, tabControl):
     # google normal tile server
     map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
     tabControl.select(tab3)
-
-    # Directions HTML
-    frame2 = Frame(tab3)
-    frame2.place(anchor=NW, x=800, width=400, height=750)
-    html = ""
-    html += f"""<h6>{start_address}</h6>"""
-    html += f"""<p>Total: {distance}: ({duration})</p>"""
-    for i in range(len(html_instructions)):
-        html += f"""<h6>{html_instructions[i]}</h6>"""
-        html += f"""<p>{distances_list[i]}: ({durations_list[i]})</p>"""
-    html += f"""<h6>{end_address}</h6>"""
-    my_label = HTMLLabel(frame2, html=html, height=750, width=400)
-    my_label.pack(pady=20, padx=20)
+    # create html directions
+    directions_html(distance, duration, end_address, start_address, distances_list, durations_list, html_instructions, tab3)
 
 
 def get_directions(tab3, tabControl, lat, lon, name, zipcode):
@@ -253,7 +271,7 @@ def main():
         with open('input.txt', 'w') as f:
             json.dump([str(zip_code.get()), 'US', int(search_radius.get()), str(ceil(int(num_results.get()), len(kinds))), kinds], f)
         # open new window with results
-        check_if_file_exists("status.txt")
+        check_if_status_exists()
         # put out the results
         output_results(tab2, tab3, tabControl, zip_code)
 
